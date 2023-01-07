@@ -1,0 +1,119 @@
+CREATION OF DATABASE:
+create database bloodbank;
+
+CREATION TO TABLES:
+1.create table blood(
+	bgtype varchar(5) primary key);
+
+2.create table bb(
+      bbid varchar(5) primary key,
+      bname varchar(10));
+
+3.create table hospital(
+	hid varchar(5) primary key,
+	hname varchar(10),
+	address varchar(10),
+	contact varchar(10),
+	bbid varchar(5));
+
+ 4.create table doctor(
+	did varchar(5) primary key,
+	dname varchar(10),
+	phno varchar(10),
+	hid varchar(5),
+            specialisation varchar(20));
+
+5. create table bb_availablity(
+	bgtype varchar(5),
+	bbid varchar(5),
+	availability int,
+	primary key(bgtype, bbid));
+ 6.create table donor(
+	doid varchar(5) primary key,
+	dname varchar(10),
+	age int,
+	weight varchar(5),
+	check(weight > 50),
+	phno varchar(10),
+	dobg varchar(5),
+	bbid varchar(5));
+
+7.create table patient(
+	pid varchar(5) primary key,
+	pname varchar(10),
+	age int,
+	gender varchar(6),
+	phno varchar(10),
+	address varchar(10),
+	pbg varchar(5),
+           did varchar(5),
+           hid varchar(5));
+
+ALTERING TABLE CONTENT:
+1.alter table patient
+add foreign key(did) references doctor(did) on delete set null;
+
+2.alter table patient
+add foreign key(hid) references hospital(hid) on delete set null;
+
+3.alter table donor
+add foreign key(bbid) references bb(bbid) on delete set null;
+
+4.alter table bb_availablity
+add foreign key(bbid) references bb(did) on delete set null;
+
+5.alter table doctor
+add foreign key(hid) references hospital(hid) on delete set null;
+
+INSERTION OF VALUES TO TABLE:
+  1.insert into blood values('0+');
+    insert into blood values('0-');
+    insert into blood values('A+');
+    insert into blood values('A-');
+    insert into blood values('B+');
+    insert into blood values('B-');
+    insert into blood values('AB+');
+    insert into blood values('AB-');
+
+  2.insert into bb values('BB1','Victoria');
+    insert into bb values('BB2','Lion');
+    insert into bb values('BB3','BGS');
+
+ 3. insert into bb_availablity values('AB+','BB1','4440');
+    insert into bb_availablity values('A+','BB1','5760');
+    insert into bb_availablity values('A-','BB1','7860');
+    insert into bb_availablity values('O+','BB1','3680');
+    insert into bb_availablity values('O-','BB1','2280');
+    insert into bb_availablity values('B+','BB1','2780');
+    insert into bb_availablity values('B-','BB1','3980');
+    insert into bb_availablity values('AB-','BB1','7640');
+    insert into bb_availablity values('B+','BB2','2900');
+    insert into bb_availablity values('O-','BB3','500');
+    insert into bb_availablity values('A-','BB2','5050');
+
+ 4.insert into hospital values('H1','Victoria','Bangalore','6252121444','BB1');
+    insert into hospital values('H2','BGS','Bangalore','6468365735','BB2');
+    insert into hospital values('H3','Lotus','Hubli','5375297364','BB1');
+    insert into hospital values('H4','Ramaiah','Mangalore','5343745385','BB3');
+    insert into hospital values('H5','Sparse','Mysuru','4753797946','BB2');
+ 
+ 5.insert into doctor values('D1','Udhay','3556643487','H2','Cardiologist');
+    insert into doctor values('D2','Akshara','7547534685','H5','Gynecologist');
+    insert into doctor values('D3','Vinay','5375873464','H3','Orthopedic');
+    insert into doctor values('D4','Vishwas','5353756527','H4','Neurologist');
+    insert into doctor values('D5','Chirag','5358570987','H1','Cardiologist');
+
+ 6.insert into donor values('DO1','Keerthana','40','52','4357974537','AB+','BB1');
+    insert into donor values('DO2','Sowmya','20','59','5765893290','B+','BB2');
+    insert into donor values('DO3','Pallavi','38','68','4357832686','B+','BB2');
+    insert into donor values('DO4','Puneet','24','69','3568743567','O+','BB1');
+    insert into donor values('DO5','Praveen','32','72','4532665564','B+','BB1');
+
+ 7.insert into patient values('P1','Akshay','21','M','4376983567','Bengaluru','O+','D5','H1');
+    insert into patient values('P2','Akash','34','M','5467586853','Bengaluru','A+','D5','H1');
+    insert into patient values('P3','Abhay','48','M','4735798635','Mangalore','AB-','D3','H4');
+    insert into patient values('P4','Sunil','27','M','4736580897','Mysuru','O-','D4','H5');
+    insert into patient values('P5','Sudha','17','F','4625788696','Hubli','B-','D2','H3');
+
+
+
